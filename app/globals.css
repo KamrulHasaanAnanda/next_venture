@@ -71,7 +71,7 @@ body {
 .card-search {
   border: 1px solid #d1d5db;
   background: #f3f4f6;
-  min-width: 250px;
+  min-width: 100%;
 }
 
 .card-title {

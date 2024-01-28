@@ -15,7 +15,7 @@ function Search() {
         </select>
       </div>
 
-      <div className="grid grid-cols-4 gap-4 mt-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-8">
         {/* Card 1 */}
 
         <div className="border border-solid card-search w-12">
