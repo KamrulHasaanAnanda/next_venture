@@ -5,7 +5,7 @@ import { flightComponent, hotelComponent } from "@/utils/config";
 function HotelComponent({ changeComponent, componentNowState }) {
   return (
     <main
-      className="flex min-h-screen flex-col items-center md:bg-contain justify-center p-5 md:p-24 bg-no-repeat sm:bg-cover lg:bg-right xl:bg-right"
+      className="flex min-h-screen flex-col items-center sm:bg-contain justify-center p-5 md:p-24 bg-no-repeat bg-right xl:bg-auto lg:bg-auto"
       style={{ backgroundImage: `url(${hotel.src})` }}
     >
       <div className="flex flex-col items-start justify-center lg:w-full xl:w-2/3 gap-6">
