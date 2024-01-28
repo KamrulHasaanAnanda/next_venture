@@ -1,6 +1,5 @@
 "use client";
 import React, { useCallback, useState } from "react";
-import hotel from "@/public/images/hotel.png";
 import { flightComponent, hotelComponent, validateForm } from "@/utils/config";
 import toast from "react-hot-toast";
 
@@ -64,52 +63,42 @@ function HotelComponent({ changeComponent, componentNowState }) {
     }
   };
   return (
-    <main
-      className="flex min-h-screen flex-col items-center sm:bg-contain justify-center p-5 md:p-24 bg-no-repeat bg-right xl:bg-auto lg:bg-auto"
-      style={{ backgroundImage: `url(${hotel.src})` }}
-    >
-      <div className="flex flex-col items-start justify-center lg:w-full xl:w-2/3 gap-6">
-        <h1 className="text-5xl leading-10 font-medium">
-          Book your Flight and Hotel in one place
-        </h1>
-        <div className="filter-card w-full p-3">
-          <div className="flex gap-2">
-            {radioOptions.map((option) => (
-              <div key={option.id} className="flex gap-2 items-center">
-                <input
-                  type="radio"
-                  id={option.id}
-                  name="componentSelection"
-                  value={option.value}
-                  checked={componentNowState === option.value}
-                  onChange={() => handleRadioChange(option.value)}
-                />
-                <h5>{option.label}</h5>
-              </div>
-            ))}
+    <div className="filter-card w-full p-3">
+      <div className="flex gap-2">
+        {radioOptions.map((option) => (
+          <div key={option.id} className="flex gap-2 items-center">
+            <input
+              type="radio"
+              id={option.id}
+              name="componentSelection"
+              value={option.value}
+              checked={componentNowState === option.value}
+              onChange={() => handleRadioChange(option.value)}
+            />
+            <h5>{option.label}</h5>
           </div>
-          <div className="mt-4 flex gap-3 flex-wrap">
-            {inputOptions.map((input) => (
-              <input
-                key={input.name}
-                type={input.type}
-                name={input.name}
-                value={parameters[input.name]}
-                className="input-update"
-                onFocus={handleFocus}
-                onBlur={handleBlur}
-                placeholder={input.placeholder}
-                onChange={handleInputChange}
-              />
-            ))}
-          </div>
-
-          <button className="search-btn" onClick={handleSubmit}>
-            Search for Hotel
-          </button>
-        </div>
+        ))}
       </div>
-    </main>
+      <div className="mt-4 flex gap-3 flex-wrap">
+        {inputOptions.map((input) => (
+          <input
+            key={input.name}
+            type={input.type}
+            name={input.name}
+            value={parameters[input.name]}
+            className="input-update"
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+            placeholder={input.placeholder}
+            onChange={handleInputChange}
+          />
+        ))}
+      </div>
+
+      <button className="search-btn" onClick={handleSubmit}>
+        Search for Hotel
+      </button>
+    </div>
   );
 }
 
