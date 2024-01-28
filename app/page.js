@@ -27,20 +27,9 @@ export default function Home() {
   };
 
   let componentNow = "";
-  if (componentNowState === flightComponent)
-    componentNow = (
-      <FlightComponent
-        changeComponent={changeComponentNow}
-        componentNowState={componentNowState}
-      />
-    );
+  if (componentNowState === flightComponent) componentNow = <FlightComponent />;
   else if (componentNowState === hotelComponent)
-    componentNow = (
-      <HotelComponent
-        changeComponent={changeComponentNow}
-        componentNowState={componentNowState}
-      />
-    );
+    componentNow = <HotelComponent />;
   return (
     <main
       className="flex min-h-screen flex-col items-center sm:bg-contain justify-center p-5 md:p-24 bg-no-repeat bg-right xl:bg-auto lg:bg-auto"

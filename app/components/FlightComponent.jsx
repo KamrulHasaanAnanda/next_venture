@@ -5,11 +5,13 @@ import {
   validateFlightForm,
   validateForm,
 } from "@/utils/config";
+import { useRouter } from "next/navigation";
 import React, { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 
 function FlightComponent() {
-  const [inputType, setInputType] = useState("text");
+  const router = useRouter();
+
   const [parameters, setparameters] = useState({
     departure_city: "",
     arrival_city: "",
@@ -49,7 +51,11 @@ function FlightComponent() {
     const validationErrors = validateFlightForm(parameters);
 
     if (Object.keys(validationErrors).length === 0) {
+      const queryString = new URLSearchParams(parameters).toString();
       console.log("Submitting form with parameters:", parameters);
+      const url = `/flight-search?${queryString}`;
+      console.log(url);
+      router.push(url);
     } else {
       for (const key in validationErrors) {
         if (validationErrors.hasOwnProperty(key)) {
