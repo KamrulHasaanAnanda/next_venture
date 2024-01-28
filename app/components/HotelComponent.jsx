@@ -1,17 +1,67 @@
 "use client";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import hotel from "@/public/images/hotel.png";
-import { flightComponent, hotelComponent } from "@/utils/config";
+import { flightComponent, hotelComponent, validateForm } from "@/utils/config";
+import toast from "react-hot-toast";
 
 function HotelComponent({ changeComponent, componentNowState }) {
-  const [inputType, setInputType] = useState("text");
+  const [parameters, setparameters] = useState({
+    checkInDate: "",
+    checkOutDate: "",
+    adults: "",
+    children: "",
+    city: "",
+    rooms: "",
+  });
 
-  const handleFocus = () => {
-    setInputType("date");
-  };
+  const radioOptions = [
+    { id: "hotel", label: "Hotel", value: hotelComponent },
+    { id: "flight", label: "Flight", value: flightComponent },
+  ];
 
-  const handleBlur = () => {
-    setInputType("text");
+  const inputOptions = [
+    { name: "checkInDate", placeholder: "Check-In Date", type: "text" },
+    { name: "checkOutDate", placeholder: "Check-Out Date", type: "text" },
+    { name: "city", placeholder: "City", type: "text" },
+    { name: "rooms", placeholder: "Number of Rooms", type: "number" },
+    { name: "adults", placeholder: "Number of Adults", type: "number" },
+    { name: "children", placeholder: "Number of Children", type: "number" },
+    // Add other input types as needed
+  ];
+
+  const handleFocus = useCallback((e) => {
+    if (e.target.name === "checkInDate" || e.target.name === "checkOutDate") {
+      e.target.type = "date";
+    }
+  }, []);
+
+  const handleBlur = useCallback((e) => {
+    if (e.target.name === "checkInDate" || e.target.name === "checkOutDate") {
+      e.target.type = "text";
+    }
+  }, []);
+
+  const handleRadioChange = (value) => changeComponent(value);
+
+  const handleInputChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setparameters((prevParams) => ({ ...prevParams, [name]: value }));
+  }, []);
+
+  const handleSubmit = async () => {
+    const validationErrors = validateForm(parameters);
+
+    if (Object.keys(validationErrors).length === 0) {
+      console.log("Submitting form with parameters:", parameters);
+    } else {
+      console.error("Validation errors:", validationErrors);
+      for (const key in validationErrors) {
+        if (validationErrors.hasOwnProperty(key)) {
+          //   console.log(`${key}: ${validationErrors[key]}`);
+          toast.error(`${key}: ${validationErrors[key]}`);
+        }
+      }
+    }
   };
   return (
     <main
@@ -24,68 +74,39 @@ function HotelComponent({ changeComponent, componentNowState }) {
         </h1>
         <div className="filter-card w-full p-3">
           <div className="flex gap-2">
-            <div className="flex gap-2 items-center ">
-              <input
-                type="radio"
-                id="hotel"
-                name="componentSelection"
-                value={hotelComponent}
-                checked={componentNowState === hotelComponent}
-                onChange={(e) => {
-                  changeComponent(e.target.value);
-                }}
-              />
-              <h5>Hotel</h5>
-            </div>
-            <div className="flex gap-2 items-center ">
-              <input
-                type="radio"
-                id="Flight"
-                name="componentSelection"
-                checked={componentNowState === flightComponent}
-                onChange={(e) => {
-                  changeComponent(e.target.value);
-                }}
-                value={flightComponent}
-              />
-              <h5>Flight</h5>
-            </div>
+            {radioOptions.map((option) => (
+              <div key={option.id} className="flex gap-2 items-center">
+                <input
+                  type="radio"
+                  id={option.id}
+                  name="componentSelection"
+                  value={option.value}
+                  checked={componentNowState === option.value}
+                  onChange={() => handleRadioChange(option.value)}
+                />
+                <h5>{option.label}</h5>
+              </div>
+            ))}
           </div>
           <div className="mt-4 flex gap-3 flex-wrap">
-            <input
-              type={inputType}
-              className="input-update"
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-              placeholder="Check-In Date"
-            />
-            <input
-              type={inputType}
-              className="input-update"
-              onFocus={handleFocus}
-              onBlur={handleBlur}
-              placeholder="Check-Out Date"
-            />
-            <input type="text" className="input-update" placeholder="City" />
-
-            <input
-              type="text"
-              className="input-update"
-              placeholder="Number of Rooms"
-            />
-            <input
-              type="number"
-              className="input-update"
-              placeholder="Number of Adults"
-            />
-            <input
-              type="number"
-              className="input-update"
-              placeholder="Number of Children"
-            />
+            {inputOptions.map((input) => (
+              <input
+                key={input.name}
+                type={input.type}
+                name={input.name}
+                value={parameters[input.name]}
+                className="input-update"
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+                placeholder={input.placeholder}
+                onChange={handleInputChange}
+              />
+            ))}
           </div>
 
-          <button className="search-btn ">Search for Hotel</button>
+          <button className="search-btn" onClick={handleSubmit}>
+            Search for Hotel
+          </button>
         </div>
       </div>
     </main>
