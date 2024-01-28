@@ -1,8 +1,46 @@
 import React from "react";
 import hotelImage from "@/public/images/hotelImage.jpeg";
 import Image from "next/image";
+import apiService from "../services/ApiSearvices";
 
-function Search() {
+async function Search({ searchParams }) {
+  // const router = useRouter();
+  //   console.log("props :>> ", searchParams);
+  let getHotels = await apiService.getHotels(searchParams);
+  console.log("getHotels :>> ", getHotels?.hotels);
+
+  let hotels = "";
+  if (getHotels?.hotels?.length > 0) {
+    hotels = getHotels.hotels.map((hotel) => {
+      return (
+        <div className="border card-search w-12" key={hotel?.id}>
+          <Image
+            src={
+              hotel?.property?.photoUrls?.length > 0
+                ? hotel?.property?.photoUrls[0]
+                : hotelImage
+            }
+            width={250}
+            height={200}
+            alt="hotel image"
+          />
+          <div className="p-4 card-search ">
+            <h5 className="card-title">{hotel?.property?.name}</h5>
+            {/* <p >Cox’s Bazar, Chittagong</p> */}
+            <div
+              className="card-p mt-2"
+              //   dangerouslySetInnerHTML={{ __html: hotel?.accessibilityLabel }}
+            >
+              {hotel?.accessibilityLabel}
+            </div>
+
+            {/* <p className="card-price mt-2">$ 24.50</p> */}
+          </div>
+        </div>
+      );
+    });
+  }
+
   return (
     <div className="p-5 md:p-24 ">
       <div className="flex justify-between items-center">
@@ -15,60 +53,8 @@ function Search() {
         </select>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5 mt-8">
-        {/* Card 1 */}
-
-        <div className="border border-solid card-search w-12">
-          <Image src={hotelImage} alt="hotel image" />
-          <div className="p-4 card-search ">
-            <h5 className="card-title">Regional Hotel</h5>
-            <p className="card-p mt-2">Cox’s Bazar, Chittagong</p>
-            <p className="card-price mt-2">$ 24.50</p>
-          </div>
-        </div>
-        <div className="border border-solid card-search w-12">
-          <Image src={hotelImage} alt="hotel image" />
-          <div className="p-4 card-search ">
-            <h5 className="card-title">Regional Hotel</h5>
-            <p className="card-p mt-2">Cox’s Bazar, Chittagong</p>
-            <p className="card-price mt-2">$ 24.50</p>
-          </div>
-        </div>
-
-        <div className="border border-solid card-search w-12">
-          <Image src={hotelImage} alt="hotel image" />
-          <div className="p-4 card-search ">
-            <h5 className="card-title">Regional Hotel</h5>
-            <p className="card-p mt-2">Cox’s Bazar, Chittagong</p>
-            <p className="card-price mt-2">$ 24.50</p>
-          </div>
-        </div>
-        <div className="border border-solid card-search w-12">
-          <Image src={hotelImage} alt="hotel image" />
-          <div className="p-4 card-search ">
-            <h5 className="card-title">Regional Hotel</h5>
-            <p className="card-p mt-2">Cox’s Bazar, Chittagong</p>
-            <p className="card-price mt-2">$ 24.50</p>
-          </div>
-        </div>
-        <div className="border border-solid card-search w-12">
-          <Image src={hotelImage} alt="hotel image" />
-          <div className="p-4 card-search ">
-            <h5 className="card-title">Regional Hotel</h5>
-            <p className="card-p mt-2">Cox’s Bazar, Chittagong</p>
-            <p className="card-price mt-2">$ 24.50</p>
-          </div>
-        </div>
-        <div className="border border-solid card-search w-12">
-          <Image src={hotelImage} alt="hotel image" />
-          <div className="p-4 card-search ">
-            <h5 className="card-title">Regional Hotel</h5>
-            <p className="card-p mt-2">Cox’s Bazar, Chittagong</p>
-            <p className="card-price mt-2">$ 24.50</p>
-          </div>
-        </div>
-
-        {/* More cards can be added as needed */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-5 mt-8">
+        {hotels}
       </div>
     </div>
   );

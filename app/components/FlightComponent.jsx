@@ -51,7 +51,6 @@ function FlightComponent() {
     if (Object.keys(validationErrors).length === 0) {
       console.log("Submitting form with parameters:", parameters);
     } else {
-      console.error("Validation errors:", validationErrors);
       for (const key in validationErrors) {
         if (validationErrors.hasOwnProperty(key)) {
           //   console.log(`${key}: ${validationErrors[key]}`);

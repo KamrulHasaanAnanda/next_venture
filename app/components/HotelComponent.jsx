@@ -1,35 +1,48 @@
 "use client";
 import React, { useCallback, useState } from "react";
-import { flightComponent, hotelComponent, validateForm } from "@/utils/config";
+import { validateForm } from "@/utils/config";
 import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 function HotelComponent() {
+  const router = useRouter();
   const [parameters, setparameters] = useState({
-    checkInDate: "",
-    checkOutDate: "",
+    arrival_date: "",
+    departure_date: "",
     adults: "",
-    children: "",
+    childrenAges: "",
     city: "",
     rooms: "",
+    search_type: "city",
   });
 
   const inputOptions = [
-    { name: "checkInDate", placeholder: "Check-In Date", type: "text" },
-    { name: "checkOutDate", placeholder: "Check-Out Date", type: "text" },
+    { name: "arrival_date", placeholder: "Check-In Date", type: "text" },
+    { name: "departure_date", placeholder: "Check-Out Date", type: "text" },
     { name: "city", placeholder: "City", type: "text" },
     { name: "rooms", placeholder: "Number of Rooms", type: "number" },
     { name: "adults", placeholder: "Number of Adults", type: "number" },
-    { name: "children", placeholder: "Number of Children", type: "number" },
+    {
+      name: "childrenAges",
+      placeholder: "Number of children",
+      type: "number",
+    },
   ];
 
   const handleFocus = useCallback((e) => {
-    if (e.target.name === "checkInDate" || e.target.name === "checkOutDate") {
+    if (
+      e.target.name === "arrival_date" ||
+      e.target.name === "departure_date"
+    ) {
       e.target.type = "date";
     }
   }, []);
 
   const handleBlur = useCallback((e) => {
-    if (e.target.name === "checkInDate" || e.target.name === "checkOutDate") {
+    if (
+      e.target.name === "arrival_date" ||
+      e.target.name === "departure_date"
+    ) {
       e.target.type = "text";
     }
   }, []);
@@ -44,8 +57,17 @@ function HotelComponent() {
 
     if (Object.keys(validationErrors).length === 0) {
       console.log("Submitting form with parameters:", parameters);
+      const queryString = new URLSearchParams(parameters).toString();
+      const url = `/search?${queryString}`;
+      console.log(url);
+
+      //   router.push({
+      //     pathname: "/search",
+      //     query: queryString,
+      //   });
+
+      router.push(url);
     } else {
-      console.error("Validation errors:", validationErrors);
       for (const key in validationErrors) {
         if (validationErrors.hasOwnProperty(key)) {
           //   console.log(`${key}: ${validationErrors[key]}`);
