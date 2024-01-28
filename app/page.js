@@ -9,6 +9,12 @@ import hotel from "@/public/images/hotel.png";
 
 export default function Home() {
   const [componentNowState, setComponentNowState] = useState(flightComponent);
+
+  const radioOptions = [
+    { id: "hotel", label: "Hotel", value: hotelComponent },
+    { id: "flight", label: "Flight", value: flightComponent },
+  ];
+
   let changeComponentNow = (value) => {
     // console.log("value :>> ", value);
     if (value === flightComponent) {
@@ -48,7 +54,38 @@ export default function Home() {
         <h1 className="text-5xl leading-10 font-medium">
           Book your Flight and Hotel in one place
         </h1>
-        {componentNow}
+        <div className="filter-card w-full p-3">
+          <div className="flex gap-2">
+            <div className="flex gap-2 items-center ">
+              <input
+                type="radio"
+                id="hotel"
+                checked={componentNowState === hotelComponent}
+                name="componentSelection"
+                value={hotelComponent}
+                onChange={(e) => {
+                  changeComponentNow(e.target.value);
+                }}
+              />
+              <h5>Hotel</h5>
+            </div>
+            <div className="flex gap-2 items-center ">
+              <input
+                type="radio"
+                id="Flight"
+                name="componentSelection"
+                onChange={(e) => {
+                  changeComponentNow(e.target.value);
+                }}
+                checked={componentNowState === flightComponent}
+                value={flightComponent}
+              />
+              <h5>Flight</h5>
+            </div>
+          </div>
+
+          {componentNow}
+        </div>
       </div>
     </main>
   );

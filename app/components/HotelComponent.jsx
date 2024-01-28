@@ -3,7 +3,7 @@ import React, { useCallback, useState } from "react";
 import { flightComponent, hotelComponent, validateForm } from "@/utils/config";
 import toast from "react-hot-toast";
 
-function HotelComponent({ changeComponent, componentNowState }) {
+function HotelComponent() {
   const [parameters, setparameters] = useState({
     checkInDate: "",
     checkOutDate: "",
@@ -12,11 +12,6 @@ function HotelComponent({ changeComponent, componentNowState }) {
     city: "",
     rooms: "",
   });
-
-  const radioOptions = [
-    { id: "hotel", label: "Hotel", value: hotelComponent },
-    { id: "flight", label: "Flight", value: flightComponent },
-  ];
 
   const inputOptions = [
     { name: "checkInDate", placeholder: "Check-In Date", type: "text" },
@@ -40,8 +35,6 @@ function HotelComponent({ changeComponent, componentNowState }) {
     }
   }, []);
 
-  const handleRadioChange = (value) => changeComponent(value);
-
   const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;
     setparameters((prevParams) => ({ ...prevParams, [name]: value }));
@@ -63,22 +56,7 @@ function HotelComponent({ changeComponent, componentNowState }) {
     }
   };
   return (
-    <div className="filter-card w-full p-3">
-      <div className="flex gap-2">
-        {radioOptions.map((option) => (
-          <div key={option.id} className="flex gap-2 items-center">
-            <input
-              type="radio"
-              id={option.id}
-              name="componentSelection"
-              value={option.value}
-              checked={componentNowState === option.value}
-              onChange={() => handleRadioChange(option.value)}
-            />
-            <h5>{option.label}</h5>
-          </div>
-        ))}
-      </div>
+    <>
       <div className="mt-4 flex gap-3 flex-wrap">
         {inputOptions.map((input) => (
           <input
@@ -98,7 +76,7 @@ function HotelComponent({ changeComponent, componentNowState }) {
       <button className="search-btn" onClick={handleSubmit}>
         Search for Hotel
       </button>
-    </div>
+    </>
   );
 }
 

@@ -2,7 +2,7 @@
 import { flightComponent, hotelComponent } from "@/utils/config";
 import React, { useState } from "react";
 
-function FlightComponent({ changeComponent, componentNowState }) {
+function FlightComponent() {
   const [inputType, setInputType] = useState("text");
 
   const handleFocus = () => {
@@ -13,35 +13,7 @@ function FlightComponent({ changeComponent, componentNowState }) {
     setInputType("text");
   };
   return (
-    <div className="filter-card w-full p-3">
-      <div className="flex gap-2">
-        <div className="flex gap-2 items-center ">
-          <input
-            type="radio"
-            id="hotel"
-            checked={componentNowState === hotelComponent}
-            name="componentSelection"
-            value={hotelComponent}
-            onChange={(e) => {
-              changeComponent(e.target.value);
-            }}
-          />
-          <h5>Hotel</h5>
-        </div>
-        <div className="flex gap-2 items-center ">
-          <input
-            type="radio"
-            id="Flight"
-            name="componentSelection"
-            onChange={(e) => {
-              changeComponent(e.target.value);
-            }}
-            checked={componentNowState === flightComponent}
-            value={flightComponent}
-          />
-          <h5>Flight</h5>
-        </div>
-      </div>
+    <>
       <div className="mt-4 flex gap-3 flex-wrap">
         <input
           type="text"
@@ -79,9 +51,8 @@ function FlightComponent({ changeComponent, componentNowState }) {
           placeholder="Number of Children"
         />
       </div>
-
       <button className="search-btn">Search for Flight</button>
-    </div>
+    </>
   );
 }
 
