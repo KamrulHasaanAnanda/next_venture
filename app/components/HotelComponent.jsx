@@ -1,8 +1,18 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import hotel from "@/public/images/hotel.png";
 import { flightComponent, hotelComponent } from "@/utils/config";
 
 function HotelComponent({ changeComponent, componentNowState }) {
+  const [inputType, setInputType] = useState("text");
+
+  const handleFocus = () => {
+    setInputType("date");
+  };
+
+  const handleBlur = () => {
+    setInputType("text");
+  };
   return (
     <main
       className="flex min-h-screen flex-col items-center sm:bg-contain justify-center p-5 md:p-24 bg-no-repeat bg-right xl:bg-auto lg:bg-auto"
@@ -43,25 +53,25 @@ function HotelComponent({ changeComponent, componentNowState }) {
           </div>
           <div className="mt-4 flex gap-3 flex-wrap">
             <input
-              type="text"
+              type={inputType}
               className="input-update"
-              placeholder="Departure City"
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              placeholder="Check-In Date"
             />
             <input
-              type="text"
+              type={inputType}
               className="input-update"
-              placeholder="Departure City"
+              onFocus={handleFocus}
+              onBlur={handleBlur}
+              placeholder="Check-Out Date"
             />
-            <input
-              type="date"
-              className="input-update"
-              placeholder="Departure Date"
-            />
+            <input type="text" className="input-update" placeholder="City" />
 
             <input
               type="text"
               className="input-update"
-              placeholder="Return Date"
+              placeholder="Number of Rooms"
             />
             <input
               type="number"
@@ -74,6 +84,8 @@ function HotelComponent({ changeComponent, componentNowState }) {
               placeholder="Number of Children"
             />
           </div>
+
+          <button className="search-btn ">Search for Hotel</button>
         </div>
       </div>
     </main>

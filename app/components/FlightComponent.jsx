@@ -1,8 +1,18 @@
+"use client";
 import { flightComponent, hotelComponent } from "@/utils/config";
-import React from "react";
+import React, { useState } from "react";
 import flight from "@/public/images/flight1.png";
 
 function FlightComponent({ changeComponent, componentNowState }) {
+  const [inputType, setInputType] = useState("text");
+
+  const handleFocus = () => {
+    setInputType("date");
+  };
+
+  const handleBlur = () => {
+    setInputType("text");
+  };
   return (
     <main
       className="flex min-h-screen flex-col items-center sm:bg-contain justify-center p-5 md:p-24 bg-no-repeat bg-right xl:bg-auto lg:bg-auto"
@@ -53,14 +63,18 @@ function FlightComponent({ changeComponent, componentNowState }) {
               placeholder="Departure City"
             />
             <input
-              type="date"
+              type={inputType}
               className="input-update"
+              onFocus={handleFocus}
+              onBlur={handleBlur}
               placeholder="Departure Date"
             />
 
             <input
-              type="text"
+              type={inputType}
               className="input-update"
+              onFocus={handleFocus}
+              onBlur={handleBlur}
               placeholder="Return Date"
             />
             <input
@@ -74,6 +88,8 @@ function FlightComponent({ changeComponent, componentNowState }) {
               placeholder="Number of Children"
             />
           </div>
+
+          <button className="search-btn">Search for Flight</button>
         </div>
       </div>
     </main>
