@@ -20,7 +20,6 @@ function HotelComponent() {
     { name: "rooms", placeholder: "Number of Rooms", type: "number" },
     { name: "adults", placeholder: "Number of Adults", type: "number" },
     { name: "children", placeholder: "Number of Children", type: "number" },
-    // Add other input types as needed
   ];
 
   const handleFocus = useCallback((e) => {
