@@ -31,6 +31,7 @@ apiService.getHotels = async (data) => {
         return hotelResult?.data;
       } catch (error) {
         console.error("hotel error", error);
+        return [];
       }
     }
     console.log("getDestId", getDestId);
@@ -82,6 +83,7 @@ apiService.getFlight = async (data) => {
         return flightResult?.data;
       } catch (error) {
         // console.error("hotel error", error);
+        return [];
       }
     }
     // console.log("getFlightLocation", getFlightLocation);

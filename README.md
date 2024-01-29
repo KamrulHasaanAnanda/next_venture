@@ -38,7 +38,7 @@ Create a `.env` file in the root of the project with the following content:
 
 ```env
 NEXT_PUBLIC_HOTEL_API=https://booking-com15.p.rapidapi.com/api/v1/
-NEXT_PUBLIC_X_RapidAPI=432080385bmsh12a594af9449d79p15d6fejsn0a3e68186efb
+NEXT_PUBLIC_X_RapidAPI=023c55e313mshe336eda584850e0p17041cjsndff956a0100e
 NEXT_PUBLIC_X_RapidHOST=booking-com15.p.rapidapi.com
 
 

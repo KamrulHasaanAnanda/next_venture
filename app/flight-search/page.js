@@ -12,7 +12,7 @@ async function Search({ searchParams }) {
   let hotels = "";
   if (getFlights?.aggregation?.airlines?.length > 0) {
     hotels = getFlights?.aggregation?.airlines?.map((flights) => {
-      console.log("flights :>> ", flights);
+      // console.log("flights :>> ", flights);
       return (
         <div className="border card-search w-12" key={flights?.id}>
           <Image
@@ -44,9 +44,15 @@ async function Search({ searchParams }) {
         </select>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-5 mt-8">
-        {hotels}
-      </div>
+      {getFlights?.aggregation?.airlines?.length > 0 ? (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-5 mt-8">
+          {hotels}
+        </div>
+      ) : (
+        <div className="flex items-center justify-center h-screen">
+          <p className="text-gray-600 text-lg">No data found</p>
+        </div>
+      )}
     </div>
   );
 }

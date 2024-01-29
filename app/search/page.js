@@ -53,9 +53,15 @@ async function Search({ searchParams }) {
         </select>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-5 mt-8">
-        {hotels}
-      </div>
+      {getHotels?.hotels?.length > 0 ? (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5 gap-5 mt-8">
+          {hotels}
+        </div>
+      ) : (
+        <div className="flex items-center justify-center h-screen">
+          <p className="text-gray-600 text-lg">No data found</p>
+        </div>
+      )}
     </div>
   );
 }
